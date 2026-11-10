@@ -1,0 +1,513 @@
+
+/* GENERAL */
+.perfumes-page,
+.home-page {
+  color: #222;
+  background: #faf8f3;
+  font-family: inherit;
+}
+
+.perfumes-page *,
+.home-page * {
+  box-sizing: border-box;
+}
+
+/* PERFUME HERO */
+.perfume-hero {
+  min-height: 570px;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.48), rgba(0, 0, 0, 0.62)),
+    url("/perfumes/designers/tom-ford-collection.jpeg");
+  background-size: cover;
+  background-position: center 45%;
+  background-repeat: no-repeat;
+}
+
+.perfume-hero-overlay {
+  min-height: 570px;
+  display: flex;
+  align-items: center;
+  padding: 70px 8%;
+}
+
+.perfume-hero-content {
+  max-width: 650px;
+  color: #fff;
+}
+
+.perfume-eyebrow,
+.collection-heading span,
+.perfume-bottom-banner span,
+.home-intro span,
+.home-section-heading span,
+.home-gloss-section span,
+.home-about-section span,
+.home-contact-section span {
+  color: #c9a45c;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.perfume-hero-content h1,
+.home-hero-content h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(42px, 6vw, 70px);
+  line-height: 1.12;
+  margin: 20px 0;
+}
+
+.perfume-hero-content p,
+.home-hero-content p {
+  max-width: 530px;
+  line-height: 1.8;
+  color: #eee;
+  font-size: 16px;
+}
+
+.perfume-hero-button,
+.home-primary-button,
+.home-secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 25px;
+  margin-top: 22px;
+  background: #c9a45c;
+  color: #111;
+  text-decoration: none;
+  font-weight: 700;
+  border: 1px solid #c9a45c;
+  transition: 0.3s ease;
+}
+
+.perfume-hero-button:hover,
+.home-primary-button:hover {
+  background: #e3c889;
+  border-color: #e3c889;
+}
+
+.home-secondary-button {
+  background: transparent;
+  color: #fff;
+  border-color: #fff;
+}
+
+.home-secondary-button:hover {
+  background: #fff;
+  color: #111;
+}
+
+/* PERFUME COLLECTION */
+.perfume-collection {
+  padding: 85px 7%;
+}
+
+.collection-heading,
+.home-intro {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 45px;
+}
+
+.collection-heading h2,
+.home-intro h2,
+.home-section-heading h2,
+.home-about-section h2,
+.home-contact-section h2 {
+  font-family: Georgia, serif;
+  font-size: clamp(30px, 4vw, 43px);
+  margin: 15px 0;
+  color: #171717;
+}
+
+.collection-heading p,
+.home-intro p {
+  color: #777;
+  line-height: 1.8;
+}
+
+.perfume-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.perfume-tabs button {
+  padding: 13px 25px;
+  border: 1px solid #c9a45c;
+  background: transparent;
+  color: #222;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.perfume-tabs button.active,
+.perfume-tabs button:hover {
+  background: #171717;
+  color: #c9a45c;
+  border-color: #171717;
+}
+
+.perfume-product-grid,
+.home-perfume-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 25px;
+}
+
+.perfume-product-card,
+.home-perfume-card {
+  background: #fff;
+  border: 1px solid #eee9df;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.perfume-product-card:hover,
+.home-perfume-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.perfume-product-image,
+.home-perfume-image {
+  height: 260px;
+  background: #f1eee7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.perfume-product-image img,
+.home-perfume-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 15px;
+}
+
+.image-missing::after {
+  content: "Image not found";
+  color: #777;
+  font-size: 13px;
+}
+
+.perfume-product-details,
+.home-perfume-details {
+  padding: 20px;
+}
+
+.perfume-brand,
+.home-perfume-details span {
+  color: #a17b35;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+.perfume-product-details h3,
+.home-perfume-details h3 {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  min-height: 45px;
+  margin: 10px 0;
+}
+
+.perfume-price,
+.home-perfume-details p {
+  font-weight: 700;
+  color: #222;
+  margin: 12px 0;
+}
+
+.perfume-order-button {
+  width: 100%;
+  padding: 13px;
+  background: #171717;
+  color: #c9a45c;
+  border: 1px solid #171717;
+  cursor: pointer;
+  font-weight: 700;
+  transition: 0.3s;
+}
+
+.perfume-order-button:hover {
+  background: #c9a45c;
+  color: #171717;
+}
+
+.perfume-order-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.out-of-stock {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #8b2525;
+  color: #fff;
+  padding: 7px 10px;
+  font-size: 11px;
+}
+
+/* PERFUME BOTTOM BANNER */
+.perfume-bottom-banner {
+  background: #171717;
+  color: #fff;
+  padding: 75px 8%;
+  text-align: center;
+}
+
+.perfume-bottom-banner h2 {
+  font-family: Georgia, serif;
+  font-size: 38px;
+  margin: 15px 0;
+}
+
+.perfume-bottom-banner p {
+  color: #ccc;
+  line-height: 1.7;
+}
+
+/* HOMEPAGE HERO */
+.home-hero {
+  min-height: 620px;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.65)),
+    url("/perfumes/designers/tom-ford-collection.jpeg");
+  background-size: cover;
+  background-position: center;
+}
+
+.home-hero-overlay {
+  min-height: 620px;
+  display: flex;
+  align-items: center;
+  padding: 70px 8%;
+}
+
+.home-hero-content {
+  max-width: 720px;
+  color: #fff;
+}
+
+.home-hero-content > span {
+  color: #c9a45c;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.home-hero-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* HOMEPAGE INTRO */
+.home-intro {
+  padding: 85px 20px 30px;
+  margin-bottom: 15px;
+}
+
+/* FEATURED PERFUMES */
+.home-featured-perfumes {
+  padding: 55px 7% 85px;
+}
+
+.home-section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 20px;
+  margin-bottom: 35px;
+}
+
+.home-section-heading h2 {
+  margin-bottom: 0;
+}
+
+.home-view-all,
+.home-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #94702f;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.home-shop-button-wrap {
+  text-align: center;
+  margin-top: 40px;
+}
+
+/* HOMEPAGE SERVICES */
+.home-services {
+  padding: 75px 7%;
+  background: #eee9df;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.home-service-card {
+  background: #fff;
+  padding: 35px;
+  border-bottom: 3px solid #c9a45c;
+}
+
+.home-service-card > span {
+  color: #c9a45c;
+  font-weight: 700;
+}
+
+.home-service-card h3 {
+  font-family: Georgia, serif;
+  font-size: 25px;
+}
+
+.home-service-card p {
+  color: #777;
+  line-height: 1.7;
+}
+
+.home-service-card a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #94702f;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+/* K'S GLOSS PROMOTION */
+.home-gloss-section {
+  padding: 90px 8%;
+  background: #e9d8d7;
+  text-align: center;
+}
+
+.home-gloss-section h2 {
+  font-family: Georgia, serif;
+  font-size: 40px;
+  color: #332323;
+}
+
+.home-gloss-section p {
+  color: #655454;
+  line-height: 1.8;
+}
+
+/* ABOUT AND CONTACT */
+.home-about-section,
+.home-contact-section {
+  padding: 85px 8%;
+  text-align: center;
+  max-width: 900px;
+  margin: auto;
+}
+
+.home-about-section p,
+.home-contact-section p {
+  color: #777;
+  line-height: 1.8;
+}
+
+.home-contact-section {
+  max-width: none;
+  background: #171717;
+  color: #fff;
+}
+
+.home-contact-section h2 {
+  color: #fff;
+}
+
+.home-contact-section p {
+  color: #ccc;
+}
+
+/* TABLET */
+@media (max-width: 1000px) {
+  .perfume-product-grid,
+  .home-perfume-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .home-services {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* MOBILE */
+@media (max-width: 650px) {
+  .perfume-hero,
+  .perfume-hero-overlay {
+    min-height: 480px;
+  }
+
+  .home-hero,
+  .home-hero-overlay {
+    min-height: 520px;
+  }
+
+  .perfume-hero-overlay,
+  .home-hero-overlay {
+    padding: 50px 7%;
+  }
+
+  .perfume-collection,
+  .home-featured-perfumes {
+    padding: 55px 5%;
+  }
+
+  .perfume-product-grid,
+  .home-perfume-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .perfume-product-image,
+  .home-perfume-image {
+    height: 190px;
+  }
+
+  .perfume-product-details,
+  .home-perfume-details {
+    padding: 12px;
+  }
+
+  .perfume-product-details h3,
+  .home-perfume-details h3 {
+    font-size: 15px;
+  }
+
+  .home-section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .home-services {
+    grid-template-columns: 1fr;
+    padding: 50px 5%;
+  }
+
+  .home-gloss-section h2,
+  .perfume-bottom-banner h2 {
+    font-size: 30px;
+  }
+
+  .home-hero-buttons {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
