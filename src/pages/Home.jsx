@@ -8,11 +8,14 @@ import {
 import { ArrowRight } from "lucide-react";
 import "../App.css";
 
+
+const getImagePath = (path) =>
+  `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
 function PerfumeCard({ perfume }) {
   return (
     <article className="perfume-card">
       <Link to="/Perfumes" className="perfume-image">
-        <img src={perfume.image} alt={perfume.name} />
+        <img src={getImagePath(perfume.image)}alt={perfume.name}/>
       </Link>
 
       <div className="perfume-info">
@@ -119,7 +122,10 @@ function Home() {
             </Link>
           </div>
           <div className="image">
-            <img src="/gifts/Gift package girls/01_red-heart-money-box_mel-jewelry-case_lashes_candle_ferrero_keychain_biscuits.jpeg" alt="Welcome to Kenny'scent" height={400} />
+            <img
+            src={getImagePath("/gifts/Gift package girls/01_red-heart-money-box_mel-jewelry-case_lashes_candle_ferrero_keychain_biscuits.jpeg")}
+            alt="Welcome to Kenny'scent"
+            height={400}/>
           </div>
         </section>
 

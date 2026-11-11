@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import "./About.css";
 
+const getImagePath = (path) =>
+  `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
+
+
 function About() {
   return (
     <main className="about-page">
@@ -34,9 +38,8 @@ function About() {
       <section className="about-owner-section">
         <div className="about-owner-image">
           <img
-            src="/images/kenny.jpeg"
-            alt="Kenny Opeifah, owner of Kennyscent & Confectionery"
-          />
+          src={getImagePath("/images/kenny.jpeg")}
+          alt="Kenny Opeifah, owner of Kennyscent & Confectionery"/>
         </div>
 
         <div className="about-owner-content">

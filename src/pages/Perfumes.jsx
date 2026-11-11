@@ -81,17 +81,9 @@ function Perfumes() {
           {perfumes.map((perfume) => (
             <article className="perfume-product-card" key={perfume.id}>
               <div className="perfume-product-image">
-                <img
-                  src={perfume.image}
-                  alt={perfume.name}
-                  loading="lazy"
-                  onError={(event) => {
-                    event.currentTarget.style.display = "none";
-                    event.currentTarget.parentElement.classList.add(
-                      "image-missing"
-                    );
-                  }}
-                />
+               <img
+               src={`${import.meta.env.BASE_URL}${perfume.image.replace(/^\/+/, "")}`}
+               alt={perfume.name}/>
 
                 {!perfume.inStock && (
                   <span className="out-of-stock">Out of Stock</span>

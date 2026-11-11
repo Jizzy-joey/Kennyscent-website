@@ -11,6 +11,9 @@ import { MessageCircle, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import "./Gifts.css";
 
+const getImagePath = (path) =>
+  `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
+
 const whatsappNumber = "2347038511572";
 
 function GiftCard({ gift }) {
@@ -22,7 +25,7 @@ function GiftCard({ gift }) {
     <article className="gift-card">
       <div className="gift-card-image">
         <img
-          src={gift.image}
+          src={getImagePath(gift.image)}
           alt={gift.name}
           loading="lazy"
           onError={(event) => {

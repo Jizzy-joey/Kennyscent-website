@@ -10,6 +10,10 @@ import {
 
 import "./Surprises.css";
 
+
+const getImagePath = (path) =>
+  `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
+
 function Surprises() {
   // Replace with your real Nigerian WhatsApp number.
   const whatsappNumber = "+2347038511572";
@@ -130,16 +134,8 @@ function Surprises() {
             <article className="surprise-card" key={setup.id}>
               <div className="surprise-card-image">
                 <img
-                  src={setup.image}
-                  alt={setup.name}
-                  loading="lazy"
-                  onError={(event) => {
-                    event.currentTarget.style.display = "none";
-                    event.currentTarget.parentElement.classList.add(
-                      "surprise-image-missing"
-                    );
-                  }}
-                />
+                src={getImagePath(setup.image)}
+                alt={setup.name}/>
 
                 <span className="surprise-card-label">
                   {setup.occasion}
