@@ -1,0 +1,411 @@
+
+/* GIFTS PAGE */
+.gifts-page {
+  background: #FFF8FA;
+  color: #49323C;
+  overflow: hidden;
+}
+
+.gifts-page * {
+  box-sizing: border-box;
+}
+
+/* HERO */
+.gifts-hero {
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  padding: 90px 8%;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(67, 30, 47, 0.92),
+      rgba(107, 53, 76, 0.78)
+    ),
+    url("/gifts/gift-package-girls/09_multi-box-spread_necklace-set_sandals_4th-street-wine_foxs-cookies_it-feels-like-love-card.jpeg");
+  background-size: cover;
+  background-position: center;
+}
+
+.gifts-hero-content {
+  max-width: 720px;
+}
+
+.gift-eyebrow {
+  color: #D4AF72;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  margin-bottom: 18px;
+}
+
+.gifts-hero h1 {
+  color: #FFFFFF;
+  font-family: Georgia, serif;
+  font-size: clamp(42px, 6vw, 70px);
+  line-height: 1.15;
+  font-weight: 500;
+  margin-bottom: 22px;
+}
+
+.gifts-hero h1 span {
+  display: block;
+  color: #E9A1BA;
+  font-style: italic;
+}
+
+.gifts-hero-description {
+  max-width: 600px;
+  color: #FCEBF1;
+  font-size: 15px;
+  line-height: 1.9;
+  margin-bottom: 32px;
+}
+
+.gifts-hero-button,
+.custom-gift-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 24px;
+  background: #D4AF72;
+  color: #49323C;
+  font-size: 13px;
+  font-weight: 700;
+  transition: 0.3s ease;
+}
+
+.gifts-hero-button:hover,
+.custom-gift-button:hover {
+  background: #E9A1BA;
+  transform: translateY(-3px);
+}
+
+/* INTRO */
+.gifts-intro {
+  padding: 85px 7% 55px;
+  text-align: center;
+}
+
+.gifts-intro .gift-eyebrow,
+.gift-section-heading .gift-eyebrow {
+  color: #C96F91;
+}
+
+.gifts-intro h2,
+.gift-section-heading h2,
+.custom-gift-section h2 {
+  font-family: Georgia, serif;
+  font-weight: 500;
+  color: #6B354C;
+}
+
+.gifts-intro h2 {
+  font-size: clamp(30px, 4vw, 43px);
+  margin-bottom: 15px;
+}
+
+.gifts-intro > p:not(.gift-eyebrow) {
+  color: #8B727D;
+  font-size: 14px;
+  line-height: 1.8;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.gift-category-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.gift-category-links a {
+  padding: 11px 17px;
+  border: 1px solid #E9A1BA;
+  background: #FFFFFF;
+  color: #6B354C;
+  font-size: 12px;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.gift-category-links a:hover {
+  background: #6B354C;
+  border-color: #6B354C;
+  color: #FFFFFF;
+}
+
+/* GIFT SECTIONS */
+.gift-section {
+  padding: 65px 7%;
+  scroll-margin-top: 90px;
+}
+
+.gift-section:nth-of-type(even) {
+  background: #FCEBF1;
+}
+
+.gift-section-heading {
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto 40px;
+}
+
+.gift-section-heading h2 {
+  font-size: clamp(29px, 4vw, 40px);
+  margin-bottom: 13px;
+}
+
+.gift-section-heading > p:last-child {
+  color: #8B727D;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* GIFT GRID */
+.gift-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 25px;
+  max-width: 1450px;
+  margin: auto;
+}
+
+.gift-card {
+  background: #FFFFFF;
+  border: 1px solid #F1DCE5;
+  overflow: hidden;
+  transition: 0.3s ease;
+}
+
+.gift-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(107, 53, 76, 0.12);
+}
+
+.gift-card-image {
+  position: relative;
+  height: 270px;
+  overflow: hidden;
+  background: #FCEBF1;
+}
+
+.gift-card-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.gift-card:hover .gift-card-image img {
+  transform: scale(1.06);
+}
+
+.gift-image-label {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: rgba(107, 53, 76, 0.9);
+  color: #FFFFFF;
+  padding: 7px 11px;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.gift-card-image.image-unavailable::after {
+  content: "Gift image unavailable";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6B354C;
+  font-size: 13px;
+}
+
+.gift-card-content {
+  padding: 20px 17px;
+  text-align: center;
+}
+
+.gift-card-content h3 {
+  min-height: 42px;
+  color: #6B354C;
+  font-family: Georgia, serif;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.gift-price {
+  color: #C96F91;
+  font-size: 17px;
+  font-weight: 800;
+  margin-bottom: 17px;
+}
+
+.gift-order-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 10px;
+  background: #6B354C;
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.gift-order-button:hover {
+  background: #C96F91;
+  color: #FFFFFF;
+}
+
+/* CUSTOM GIFT SECTION */
+.custom-gift-section {
+  padding: 90px 7%;
+  background:
+    linear-gradient(
+      rgba(107, 53, 76, 0.94),
+      rgba(107, 53, 76, 0.94)
+    ),
+    url("/gifts/gift-package-guys/09_black-gold-ribbon-box_king-uchay-birthday_blueidea-trimmer_spanish-wine_desk-clock_photo-card.jpeg");
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+}
+
+.custom-gift-content {
+  max-width: 700px;
+  margin: auto;
+}
+
+.custom-gift-section h2 {
+  color: #FFFFFF;
+  font-size: clamp(32px, 4vw, 45px);
+  margin-bottom: 17px;
+}
+
+.custom-gift-section .gift-eyebrow {
+  color: #E9A1BA;
+}
+
+.custom-gift-section p:not(.gift-eyebrow) {
+  color: #FCEBF1;
+  font-size: 14px;
+  line-height: 1.9;
+  margin-bottom: 28px;
+}
+
+.custom-gift-button {
+  background: #D4AF72;
+}
+
+/* TABLET */
+@media (max-width: 1050px) {
+  .gift-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .gift-card-image {
+    height: 250px;
+  }
+}
+
+/* SMALL TABLET */
+@media (max-width: 750px) {
+  .gifts-hero {
+    min-height: 490px;
+    padding: 75px 7%;
+  }
+
+  .gift-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .gift-card-image {
+    height: 240px;
+  }
+
+  .gift-section {
+    padding: 55px 5%;
+  }
+
+  .gifts-intro {
+    padding: 65px 5% 40px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+  .gifts-hero {
+    min-height: 450px;
+    padding: 65px 6%;
+  }
+
+  .gifts-hero h1 {
+    font-size: 42px;
+  }
+
+  .gifts-hero-description {
+    font-size: 13px;
+  }
+
+  .gift-category-links {
+    gap: 9px;
+  }
+
+  .gift-category-links a {
+    font-size: 10px;
+    padding: 10px 12px;
+  }
+
+  .gift-grid {
+    gap: 12px;
+  }
+
+  .gift-card-image {
+    height: 185px;
+  }
+
+  .gift-card-content {
+    padding: 15px 10px;
+  }
+
+  .gift-card-content h3 {
+    font-size: 14px;
+    min-height: 42px;
+  }
+
+  .gift-price {
+    font-size: 15px;
+  }
+
+  .gift-order-button {
+    font-size: 10px;
+    padding: 11px 5px;
+    gap: 5px;
+  }
+
+  .gift-order-button svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .gift-section-heading h2 {
+    font-size: 29px;
+  }
+
+  .custom-gift-section {
+    padding: 70px 7%;
+  }
+}

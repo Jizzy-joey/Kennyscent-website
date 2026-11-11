@@ -1,4 +1,17 @@
 
+:root {
+  /* KENNYSCENT colour palette */
+  --pink-light: #F8D7E3;
+  --pink-soft: #FCEBF1;
+  --pink: #E9A1BA;
+  --pink-dark: #C96F91;
+  --white: #FFFFFF;
+  --gold: #D4AF72;
+  --deep-rose: #6B354C;
+  --text-dark: #49323C;
+  --background: #FFF8FA;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -11,7 +24,8 @@ html {
 
 body {
   font-family: Arial, sans-serif;
-  background: #faf8f4;
+  background: var(--background);
+  color: var(--text-dark);
 }
 
 a {

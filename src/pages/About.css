@@ -1,0 +1,379 @@
+
+/* ABOUT PAGE */
+.about-page {
+  background: #FFF8FA;
+  color: #49323C;
+  width: 100%;
+}
+
+.about-page * {
+  box-sizing: border-box;
+}
+
+.about-eyebrow {
+  color: #C96F91;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+/* HERO */
+.about-hero {
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  padding: 75px 9%;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(74, 35, 52, 0.94),
+      rgba(107, 53, 76, 0.82),
+      rgba(107, 53, 76, 0.48)
+    ),
+    #6B354C;
+}
+
+.about-hero-content {
+  max-width: 720px;
+  color: #fff;
+}
+
+.about-hero h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(42px, 6vw, 68px);
+  line-height: 1.15;
+  margin: 22px 0;
+}
+
+.about-hero h1 span,
+.about-owner-content h2 span {
+  color: #E9A1BA;
+}
+
+.about-hero p {
+  max-width: 570px;
+  color: #FCEBF1;
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+.about-gold-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 25px;
+  margin-top: 22px;
+  background: #D4AF72;
+  border: 1px solid #D4AF72;
+  color: #49323C;
+  text-decoration: none;
+  font-weight: 700;
+  transition: 0.3s ease;
+}
+
+.about-gold-button:hover {
+  background: #E9A1BA;
+  border-color: #E9A1BA;
+  transform: translateY(-3px);
+}
+
+/* OWNER SECTION */
+.about-owner-section {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  align-items: center;
+  gap: 75px;
+  padding: 100px 9%;
+  max-width: 1450px;
+  margin: auto;
+}
+
+.about-owner-image {
+  position: relative;
+  min-height: 520px;
+  background: #F8D7E3;
+  border: 10px solid #fff;
+  box-shadow: 0 15px 40px rgba(107, 53, 76, 0.12);
+}
+
+.about-owner-image::after {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(212, 175, 114, 0.9);
+  pointer-events: none;
+}
+
+.about-owner-image img {
+  width: 100%;
+  height: 520px;
+  display: block;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.about-owner-content h2 {
+  font-family: Georgia, serif;
+  font-size: clamp(34px, 4vw, 48px);
+  line-height: 1.2;
+  margin: 20px 0 25px;
+  color: #6B354C;
+}
+
+.about-owner-content p {
+  color: #796671;
+  font-size: 15px;
+  line-height: 1.95;
+  margin-bottom: 18px;
+}
+
+.about-owner-signature {
+  border-left: 3px solid #D4AF72;
+  padding-left: 18px;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.about-owner-signature span {
+  font-family: Georgia, serif;
+  font-size: 24px;
+  color: #6B354C;
+}
+
+.about-owner-signature small {
+  color: #C96F91;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+/* BRAND STORY */
+.about-story-section {
+  padding: 85px 9%;
+  background: #FCEBF1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 70px;
+}
+
+.about-story-heading h2 {
+  font-family: Georgia, serif;
+  font-size: clamp(32px, 4vw, 45px);
+  line-height: 1.25;
+  color: #6B354C;
+  margin: 20px 0;
+}
+
+.about-story-text p {
+  color: #796671;
+  font-size: 15px;
+  line-height: 1.95;
+  margin-bottom: 20px;
+}
+
+/* OFFERINGS */
+.about-offerings-section {
+  padding: 95px 8%;
+  background: #FFF8FA;
+}
+
+.about-offerings-heading {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 50px;
+}
+
+.about-offerings-heading h2,
+.about-values-section > h2 {
+  font-family: Georgia, serif;
+  font-size: clamp(30px, 4vw, 43px);
+  margin: 18px 0;
+  color: #6B354C;
+}
+
+.about-offerings-heading p {
+  color: #796671;
+}
+
+.about-offerings-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.about-offering-card {
+  background: #fff;
+  border: 1px solid #F1DCE5;
+  border-bottom: 3px solid #D96B91;
+  padding: 30px 24px;
+  transition: 0.3s ease;
+}
+
+.about-offering-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(107, 53, 76, 0.09);
+}
+
+.about-offering-card > span {
+  color: #C96F91;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.about-offering-card h3 {
+  font-family: Georgia, serif;
+  font-size: 22px;
+  margin: 20px 0 12px;
+  color: #6B354C;
+}
+
+.about-offering-card p {
+  min-height: 110px;
+  color: #796671;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.about-offering-card a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #B84F78;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.about-offering-card a:hover {
+  color: #6B354C;
+  gap: 11px;
+}
+
+/* VALUES */
+.about-values-section {
+  background: #6B354C;
+  color: #fff;
+  text-align: center;
+  padding: 85px 8%;
+}
+
+.about-values-section > h2 {
+  color: #fff;
+}
+
+.about-values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 35px;
+  margin-top: 50px;
+}
+
+.about-values-grid > div {
+  padding: 25px;
+  border-top: 1px solid rgba(233, 161, 186, 0.6);
+}
+
+.about-values-grid h3 {
+  font-family: Georgia, serif;
+  font-size: 23px;
+  color: #E9A1BA;
+  margin-bottom: 12px;
+}
+
+.about-values-grid p {
+  color: #FCEBF1;
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+/* FINAL CTA */
+.about-final-section {
+  text-align: center;
+  padding: 90px 7%;
+  background: #F8D7E3;
+}
+
+.about-final-section h2 {
+  font-family: Georgia, serif;
+  font-size: clamp(30px, 4vw, 43px);
+  margin: 20px 0;
+  color: #6B354C;
+}
+
+.about-final-section p {
+  color: #796671;
+  line-height: 1.8;
+}
+
+/* TABLET */
+@media (max-width: 1000px) {
+  .about-owner-section {
+    gap: 40px;
+    padding: 75px 6%;
+  }
+
+  .about-owner-image,
+  .about-owner-image img {
+    min-height: 430px;
+    height: 430px;
+  }
+
+  .about-offerings-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* MOBILE */
+@media (max-width: 650px) {
+  .about-hero {
+    min-height: 430px;
+    padding: 60px 7%;
+  }
+
+  .about-owner-section {
+    grid-template-columns: 1fr;
+    gap: 35px;
+    padding: 65px 7%;
+  }
+
+  .about-owner-image,
+  .about-owner-image img {
+    min-height: 380px;
+    height: 380px;
+  }
+
+  .about-story-section {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 65px 7%;
+  }
+
+  .about-offerings-section {
+    padding: 65px 6%;
+  }
+
+  .about-offerings-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-offering-card p {
+    min-height: auto;
+  }
+
+  .about-values-section {
+    padding: 65px 7%;
+  }
+
+  .about-values-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .about-final-section {
+    padding: 65px 7%;
+  }
+}

@@ -111,15 +111,15 @@ function Home() {
             <p className="eyebrow">GIVE SOMETHING SPECIAL</p>
             <h2>Thoughtful Gifts, Beautifully Presented.</h2>
             <p>
-              Explore our gift hampers for him and her, thoughtfully put
+              Explore our gift  for him and her, thoughtfully put
               together for life's special moments.
             </p>
             <Link to="/Gifts" className="gold-button">
-              Explore Gift Hampers <ArrowRight size={17} />
+              Explore Gifting Packages <ArrowRight size={17} />
             </Link>
           </div>
-          <div className="image-coming-soon">
-            Gift hamper image coming soon
+          <div className="image">
+            <img src="/gifts/Gift package girls/01_red-heart-money-box_mel-jewelry-case_lashes_candle_ferrero_keychain_biscuits.jpeg" alt="Welcome to Kenny'scent" height={400} />
           </div>
         </section>
 
