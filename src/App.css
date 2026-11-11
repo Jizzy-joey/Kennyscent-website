@@ -28,6 +28,7 @@ a {
   --muted: #8B727D;
 }
 
+
 /* NAVBAR */
 .navbar {
   min-height: 82px;
@@ -51,6 +52,7 @@ a {
   letter-spacing: 2px;
   text-align: center;
   white-space: nowrap;
+  text-decoration: none;
 }
 
 .logo span {
@@ -69,6 +71,8 @@ a {
 
 .nav-links a {
   font-size: 13px;
+  color: var(--deep-rose);
+  text-decoration: none;
   transition: color 0.3s;
 }
 
@@ -91,7 +95,52 @@ a {
   color: var(--deep-rose);
   background: none;
   border: none;
+  cursor: pointer;
 }
+
+/* MOBILE NAVBAR */
+@media (max-width: 900px) {
+  .navbar {
+    padding: 15px 5%;
+  }
+
+  .mobile-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #F8D7E3;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding: 15px 0 20px;
+    box-shadow: 0 8px 12px rgba(107, 53, 76, 0.10);
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links a {
+    width: 100%;
+    text-align: center;
+    padding: 13px 0;
+    font-size: 15px;
+  }
+
+  .nav-links a:hover {
+    background: rgba(255, 255, 255, 0.35);
+  }
+}
+
 
 /* BUTTONS */
 .gold-button,
