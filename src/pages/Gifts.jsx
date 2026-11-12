@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   giftPackagesForHim,
   giftPackagesForHer,
@@ -15,10 +15,18 @@ import {
 } from "lucide-react";
 
 import { Link } from "react-router-dom";
+import { supabase } from "../lib/supabase";
 import "./Gifts.css";
+
+const whatsappNumber = "2347038511572";
+const CART_KEY = "kennyscent-cart";
 
 const getImagePath = (path) => {
   if (!path) return "";
+
+  if (path.startsWith("http")) {
+    return path;
+  }
 
   return `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
 };
@@ -26,31 +34,45 @@ const getImagePath = (path) => {
 const getPublicImageUrl = (path) => {
   if (!path) return "Image unavailable";
 
-  return `${window.location.origin}${getImagePath(path)}`;
+  return getImagePath(path);
 };
 
-const whatsappNumber = "2347038511572";
-const CART_KEY = "kennyscent-cart";
+// Prevent duplicate products when old and database products overlap.
+const combineProducts = (oldProducts, newProducts) => {
+  const filteredOldProducts = oldProducts.filter(
+    (oldProduct) =>
+      !newProducts.some(
+        (newProduct) =>
+          newProduct.name.trim().toLowerCase() ===
+          oldProduct.name.trim().toLowerCase()
+      )
+  );
+
+  return [...newProducts, ...filteredOldProducts];
+};
 
 function GiftCard({ gift, isBalloonTreat = false }) {
   const [added, setAdded] = useState(false);
 
- const message = [
-  "Hello KennyScents & Confectionery!",
-  "",
-  "I would like to enquire about ordering this gift package.",
-  "",
-  "========== PRODUCT DETAILS ==========",
-  `Product Name: ${gift.name}`,
-  `Price: ${formatGiftPrice(gift.price)}`,
-  `Product Picture: ${getPublicImageUrl(gift.image)}`,
-  "",
-  "Please confirm availability and provide information about delivery.",
-  "Thank you!",
-].join("\n");
+  const message = [
+    "Hello KennyScents & Confectionery!",
+    "",
+    "I would like to enquire about ordering this gift package.",
+    "",
+    "========== PRODUCT DETAILS ==========",
+    `Product Name: ${gift.name}`,
+    `Price: ${formatGiftPrice(gift.price)}`,
+    `Product Picture: ${getPublicImageUrl(gift.image)}`,
+    "",
+    "Please confirm availability and provide information about delivery.",
+    "Thank you!",
+  ].join("\n");
 
-const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
   const handleAddToCart = () => {
+    if (!gift.inStock) return;
+
     let cart = [];
 
     try {
@@ -100,17 +122,29 @@ const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
   return (
     <article className="gift-card">
       <div className="gift-card-image">
-        <img
-          src={getImagePath(gift.image)}
-          alt={gift.name}
-          loading="lazy"
-          onError={(event) => {
-            event.currentTarget.style.display = "none";
-            event.currentTarget.parentElement.classList.add("image-unavailable");
-          }}
-        />
+        {gift.image ? (
+          <img
+            src={getImagePath(gift.image)}
+            alt={gift.name}
+            loading="lazy"
+            onError={(event) => {
+              event.currentTarget.style.display = "none";
+              event.currentTarget.parentElement.classList.add(
+                "image-unavailable"
+              );
+            }}
+          />
+        ) : (
+          <div className="image-unavailable">
+            Image unavailable
+          </div>
+        )}
 
         <span className="gift-image-label">KennyScents Gift</span>
+
+        {!gift.inStock && (
+          <span className="out-of-stock">Out of Stock</span>
+        )}
       </div>
 
       <div className="gift-card-content">
@@ -126,9 +160,10 @@ const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
               type="button"
               className="gift-order-button"
               onClick={handleAddToCart}
+              disabled={!gift.inStock}
             >
               <ShoppingCart size={17} />
-              Add to Cart
+              {gift.inStock ? "Add to Cart" : "Unavailable"}
             </button>
 
             {added && (
@@ -172,20 +207,95 @@ function GiftSection({
         <p>{description}</p>
       </div>
 
-      <div className="gift-grid">
-        {gifts.map((gift) => (
-          <GiftCard
-            gift={gift}
-            key={gift.id}
-            isBalloonTreat={isBalloonTreat}
-          />
-        ))}
-      </div>
+      {gifts.length === 0 ? (
+        <p className="gift-empty-message">
+          No products are currently available in this collection.
+        </p>
+      ) : (
+        <div className="gift-grid">
+          {gifts.map((gift) => (
+            <GiftCard
+              gift={gift}
+              key={gift.id}
+              isBalloonTreat={isBalloonTreat}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 }
 
 export default function Gifts() {
+  const [databaseProducts, setDatabaseProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState("");
+
+  useEffect(() => {
+    const loadGiftProducts = async () => {
+      const { data, error } = await supabase
+        .from("products")
+        .select("*")
+        .in("category", [
+          "gift_package_him",
+          "gift_package_her",
+          "balloon_treat_him",
+          "balloon_treat_her",
+        ])
+        .eq("is_active", true)
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        setFetchError(error.message);
+      } else {
+        const formattedProducts = (data || []).map((product) => ({
+          id: product.id,
+          name: product.name,
+          brand: product.brand || "",
+          description: product.description || "",
+          price: Number(product.price),
+          image: product.image_url || "",
+          inStock: product.in_stock,
+          category: product.category,
+        }));
+
+        setDatabaseProducts(formattedProducts);
+      }
+
+      setLoading(false);
+    };
+
+    loadGiftProducts();
+  }, []);
+
+  const getProducts = (category, oldProducts) => {
+    const matchingProducts = databaseProducts.filter(
+      (product) => product.category === category
+    );
+
+    return combineProducts(oldProducts, matchingProducts);
+  };
+
+  const giftsForHim = getProducts(
+    "gift_package_him",
+    giftPackagesForHim
+  );
+
+  const giftsForHer = getProducts(
+    "gift_package_her",
+    giftPackagesForHer
+  );
+
+  const balloonsForHim = getProducts(
+    "balloon_treat_him",
+    balloonTreatsForHim
+  );
+
+  const balloonsForHer = getProducts(
+    "balloon_treat_her",
+    balloonTreatsForHer
+  );
+
   return (
     <main className="gifts-page">
       <section className="gifts-hero">
@@ -229,35 +339,48 @@ export default function Gifts() {
         </div>
       </section>
 
-      <GiftSection
-        sectionId="gifts-for-him"
-        title="Gift Packages for Him"
-        description="Thoughtfully arranged gift boxes for the special men in your life."
-        gifts={giftPackagesForHim}
-      />
+      {fetchError && (
+        <p className="gift-fetch-error">
+          We couldn't load the latest products from our store.
+          Existing products are still displayed.
+        </p>
+      )}
 
-      <GiftSection
-        sectionId="gifts-for-her"
-        title="Gift Packages for Her"
-        description="Beautiful gift combinations to make her feel loved, valued and appreciated."
-        gifts={giftPackagesForHer}
-      />
+      {loading ? (
+        <p className="gift-loading">Loading our gift collections...</p>
+      ) : (
+        <>
+          <GiftSection
+            sectionId="gifts-for-him"
+            title="Gift Packages for Him"
+            description="Thoughtfully arranged gift boxes for the special men in your life."
+            gifts={giftsForHim}
+          />
 
-      <GiftSection
-        sectionId="balloons-for-him"
-        title="Balloon Treats for Him"
-        description="Celebrate his special moments with personalised balloon arrangements and treats."
-        gifts={balloonTreatsForHim}
-        isBalloonTreat={true}
-      />
+          <GiftSection
+            sectionId="gifts-for-her"
+            title="Gift Packages for Her"
+            description="Beautiful gift combinations to make her feel loved, valued and appreciated."
+            gifts={giftsForHer}
+          />
 
-      <GiftSection
-        sectionId="balloons-for-her"
-        title="Balloon Treats for Her"
-        description="Colourful balloon treats and thoughtful surprises for the women who matter."
-        gifts={balloonTreatsForHer}
-        isBalloonTreat={true}
-      />
+          <GiftSection
+            sectionId="balloons-for-him"
+            title="Balloon Treats for Him"
+            description="Celebrate his special moments with personalised balloon arrangements and treats."
+            gifts={balloonsForHim}
+            isBalloonTreat={true}
+          />
+
+          <GiftSection
+            sectionId="balloons-for-her"
+            title="Balloon Treats for Her"
+            description="Colourful balloon treats and thoughtful surprises for the women who matter."
+            gifts={balloonsForHer}
+            isBalloonTreat={true}
+          />
+        </>
+      )}
 
       <section className="custom-gift-section">
         <div className="custom-gift-content">
