@@ -124,8 +124,7 @@ function Home() {
           <div className="image">
             <img
             src={getImagePath("/gifts/Gift package girls/01_red-heart-money-box_mel-jewelry-case_lashes_candle_ferrero_keychain_biscuits.jpeg")}
-            alt="Welcome to Kenny'scent"
-            height={400}/>
+             alt="Beautifully arranged red-heart gift package"/>
           </div>
         </section>
 
@@ -141,8 +140,9 @@ function Home() {
               Explore Surprise Packages <ArrowRight size={17} />
             </Link>
           </div>
-          <div className="image-coming-soon">
-            Surprise setup image coming soon
+          <div className="image">
+            <img
+            src={getImagePath("/surprises/dark-romantic-surprise-room-led-decor.jpeg")}alt="Luxury romantic surprise room setup"/>
           </div>
         </section>
 

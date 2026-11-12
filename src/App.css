@@ -396,17 +396,21 @@ a {
   margin-bottom: 25px;
 }
 
-.image-coming-soon {
-  min-height: 330px;
-  background: var(--pink-soft);
-  border: 1px dashed var(--pink-dark);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 20px;
-  color: var(--deep-rose);
-  font-size: 14px;
+.placeholder-section .image {
+  width: 100%;
+  max-width: 480px;
+  height: 350px;
+  overflow: hidden;
+  border-radius: 18px;
+  flex-shrink: 0;
+}
+
+.placeholder-section .image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
 }
 
 .gloss-section {
@@ -566,6 +570,13 @@ a {
   .site-footer {
     padding: 55px 7% 25px;
   }
+
+@media (max-width: 768px) {
+  .placeholder-section .image {
+    max-width: 100%;
+    height: 260px;
+  }
+}
 
   .footer-main {
     grid-template-columns: 1fr 1fr;
