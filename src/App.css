@@ -688,3 +688,27 @@ a {
     min-height: 250px;
   }
 }
+/* CART NOTIFICATION */
+.cart-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.cart-count {
+  position: absolute;
+  top: -10px;
+  right: -11px;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #C96F91;
+  color: #FFFFFF;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}

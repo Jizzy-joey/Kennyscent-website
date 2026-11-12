@@ -409,3 +409,28 @@
     padding: 70px 7%;
   }
 }
+
+/* BALLOON TREAT CART MESSAGE */
+.balloon-cart-message {
+  margin-top: 12px;
+  text-align: center;
+  color: #6B354C;
+  font-size: 13px;
+}
+
+.balloon-cart-message p {
+  margin-bottom: 7px;
+}
+
+.balloon-cart-message a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #C96F91;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.balloon-cart-message a:hover {
+  color: #A94F73;
+}

@@ -1,31 +1,65 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { designerPerfumes, regularPerfumes, formatPrice } from "../data/perfumes";
-import { ArrowRight } from "lucide-react";
+import {
+  designerPerfumes,
+  regularPerfumes,
+  formatPrice,
+} from "../data/perfumes";
+import { ArrowRight, ShoppingCart } from "lucide-react";
 import "./Perfumes.css";
+
+const CART_KEY = "kennyscent-cart";
 
 function Perfumes() {
   const [activeCategory, setActiveCategory] = useState("designer");
+  const [addedPerfumeName, setAddedPerfumeName] = useState("");
 
   const perfumes =
     activeCategory === "designer"
       ? designerPerfumes
       : regularPerfumes;
 
-  const handleEnquiry = (perfume) => {
-    // Replace this with your real WhatsApp number.
-    const whatsappNumber = "YOUR_WHATSAPP_NUMBER";
+  const handleAddToCart = (perfume) => {
+    if (!perfume.inStock) return;
 
-    const message = encodeURIComponent(
-      `Hello Kennyscent, I am interested in ${perfume.name}. Please provide more information.`
+    let cart = [];
+
+    try {
+      cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+      if (!Array.isArray(cart)) cart = [];
+    } catch {
+      cart = [];
+    }
+
+    // Give each perfume a unique cart ID.
+    const cartId = `perfume-${perfume.id}`;
+
+    const existingItem = cart.find(
+      (item) => item.id === cartId
     );
 
-    window.open(
-      `https://wa.me/${whatsappNumber}?text=${message}`,
-      "_blank",
-      "noopener,noreferrer"
-    );
+    if (existingItem) {
+      cart = cart.map((item) =>
+        item.id === cartId
+          ? { ...item, quantity: Number(item.quantity || 1) + 1 }
+          : item
+      );
+    } else {
+      cart.push({
+        id: cartId,
+        productId: perfume.id,
+        name: perfume.name,
+        price: Number(perfume.price),
+        image: perfume.image,
+        quantity: 1,
+        category: "Perfume",
+      });
+    }
+
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    window.dispatchEvent(new Event("cartUpdated"));
+    setAddedPerfumeName(perfume.name);
   };
 
   return (
@@ -81,9 +115,10 @@ function Perfumes() {
           {perfumes.map((perfume) => (
             <article className="perfume-product-card" key={perfume.id}>
               <div className="perfume-product-image">
-               <img
-               src={`${import.meta.env.BASE_URL}${perfume.image.replace(/^\/+/, "")}`}
-               alt={perfume.name}/>
+                <img
+                  src={`${import.meta.env.BASE_URL}${perfume.image.replace(/^\/+/, "")}`}
+                  alt={perfume.name}
+                />
 
                 {!perfume.inStock && (
                   <span className="out-of-stock">Out of Stock</span>
@@ -102,14 +137,27 @@ function Perfumes() {
                 <button
                   className="perfume-order-button"
                   disabled={!perfume.inStock}
-                  onClick={() => handleEnquiry(perfume)}
+                  onClick={() => handleAddToCart(perfume)}
                 >
-                  {perfume.inStock ? "Enquire on WhatsApp" : "Unavailable"}
+                  <ShoppingCart size={17} />
+                  {perfume.inStock ? "Add to Cart" : "Unavailable"}
                 </button>
               </div>
             </article>
           ))}
         </div>
+
+        {addedPerfumeName && (
+          <div className="perfume-cart-message" role="status">
+            <p>
+              <strong>{addedPerfumeName}</strong> has been added to your cart!
+            </p>
+
+            <Link to="/cart">
+              View Cart <ArrowRight size={16} />
+            </Link>
+          </div>
+        )}
       </section>
 
       <section className="perfume-bottom-banner">
@@ -120,7 +168,7 @@ function Perfumes() {
             Explore our gift hampers and surprise packages for
             someone special.
           </p>
-          <Link to="/Gifts" className="perfume-hero-button">
+          <Link to="/gifts" className="perfume-hero-button">
             Explore Gifts <ArrowRight size={18} />
           </Link>
         </div>

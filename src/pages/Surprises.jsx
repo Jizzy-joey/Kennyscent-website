@@ -7,17 +7,17 @@ import {
   CalendarDays,
 } from "lucide-react";
 
-
 import "./Surprises.css";
 
+const whatsappNumber = "2347038511572";
 
 const getImagePath = (path) =>
   `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
 
-function Surprises() {
-  // Replace with your real Nigerian WhatsApp number.
-  const whatsappNumber = "+2347038511572";
+const getPublicImageUrl = (path) =>
+  `${window.location.origin}${getImagePath(path)}`;
 
+function Surprises() {
   const surpriseSetups = [
     {
       id: 1,
@@ -61,16 +61,55 @@ function Surprises() {
     },
   ];
 
+  // BOOK A PARTICULAR SURPRISE SETUP
   const bookSetup = (setup) => {
-    const message = encodeURIComponent(
-      `Hello Kennyscent! I am interested in the ${setup.name}. Please tell me more about the pricing, availability and booking process.`
-    );
+    const message = [
+      "Hello KennyScents & Confectionery!",
+      "",
+      "I am interested in booking one of your surprise setups.",
+      "",
+      "========== SETUP DETAILS ==========",
+      `Setup Name: ${setup.name}`,
+      `Occasion: ${setup.occasion}`,
+      `Description: ${setup.description}`,
+      `Setup Picture: ${getPublicImageUrl(setup.image)}`,
+      "",
+      "========== BOOKING ENQUIRY ==========",
+      "Please provide more information about:",
+      "1. Pricing",
+      "2. Availability",
+      "3. Booking process",
+      "4. Delivery and setup location",
+      "",
+      "Thank you!",
+    ].join("\n");
 
-    window.open(
-      `https://wa.me/${whatsappNumber}?text=${message}`,
-      "_blank",
-      "noopener,noreferrer"
-    );
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappUrl, "_blank");
+  };
+
+  // REQUEST A CUSTOM SURPRISE OR EVENT DECORATION
+  const requestCustomQuote = () => {
+    const message = [
+      "Hello KennyScents & Confectionery!",
+      "",
+      "I would like to request a custom surprise or event decoration.",
+      "",
+      "Please help me with the following:",
+      "1. Available services",
+      "2. Pricing and packages",
+      "3. Available dates",
+      "4. Booking requirements",
+      "",
+      "I would love to discuss my ideas with you.",
+      "",
+      "Thank you!",
+    ].join("\n");
+
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappUrl, "_blank");
   };
 
   return (
@@ -125,7 +164,7 @@ function Surprises() {
           <h2>Explore Our Surprise Setups</h2>
           <p>
             Get inspired by some of the beautiful experiences
-            you can create with Kennyscent.
+            you can create with KennyScents.
           </p>
         </div>
 
@@ -134,8 +173,10 @@ function Surprises() {
             <article className="surprise-card" key={setup.id}>
               <div className="surprise-card-image">
                 <img
-                src={getImagePath(setup.image)}
-                alt={setup.name}/>
+                  src={getImagePath(setup.image)}
+                  alt={setup.name}
+                  loading="lazy"
+                />
 
                 <span className="surprise-card-label">
                   {setup.occasion}
@@ -148,6 +189,7 @@ function Surprises() {
                 <p>{setup.description}</p>
 
                 <button
+                  type="button"
                   className="surprise-book-button"
                   onClick={() => bookSetup(setup)}
                 >
@@ -175,18 +217,9 @@ function Surprises() {
           </p>
 
           <button
+            type="button"
             className="surprises-gold-button"
-            onClick={() => {
-              const message = encodeURIComponent(
-                "Hello Kennyscent! I would like to discuss a custom surprise or event decoration. Please tell me more about your services."
-              );
-
-              window.open(
-                `https://wa.me/${whatsappNumber}?text=${message}`,
-                "_blank",
-                "noopener,noreferrer"
-              );
-            }}
+            onClick={requestCustomQuote}
           >
             Request a Custom Quote <MessageCircle size={18} />
           </button>
@@ -231,7 +264,7 @@ function Surprises() {
           </div>
         </div>
 
-        <Link to="/Contact" className="surprise-contact-link">
+        <Link to="/contact" className="surprise-contact-link">
           Have Questions? Contact Us <ArrowRight size={17} />
         </Link>
       </section>

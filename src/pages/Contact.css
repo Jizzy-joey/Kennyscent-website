@@ -1,8 +1,8 @@
 
 /* MAIN CONTACT PAGE */
 .contact-page {
-  background: #faf8f3;
-  color: #222;
+  background: #FFF8FA;
+  color: #49323C;
   width: 100%;
 }
 
@@ -19,11 +19,11 @@
   background:
     linear-gradient(
       90deg,
-      rgba(0, 0, 0, 0.94),
-      rgba(0, 0, 0, 0.72),
-      rgba(0, 0, 0, 0.4)
+      rgba(99, 45, 67, 0.94),
+      rgba(107, 53, 76, 0.82),
+      rgba(201, 111, 145, 0.45)
     ),
-    #171717;
+    #6B354C;
 }
 
 .contact-hero-content {
@@ -32,7 +32,7 @@
 }
 
 .contact-eyebrow {
-  color: #c9a45c;
+  color: #D4AF72;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 3px;
@@ -46,12 +46,12 @@
 }
 
 .contact-hero h1 span {
-  color: #c9a45c;
+  color: #F8D7E3;
 }
 
 .contact-hero p {
   max-width: 520px;
-  color: #ddd;
+  color: #FCEBF1;
   line-height: 1.9;
   font-size: 16px;
 }
@@ -60,8 +60,8 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: #c9a45c;
-  color: #171717;
+  background: #D4AF72;
+  color: #49323C;
   text-decoration: none;
   padding: 15px 25px;
   margin-top: 22px;
@@ -70,7 +70,7 @@
 }
 
 .contact-gold-button:hover {
-  background: #e5c98b;
+  background: #E9C991;
   transform: translateY(-3px);
 }
 
@@ -86,11 +86,11 @@
   font-family: Georgia, serif;
   font-size: clamp(30px, 4vw, 43px);
   margin: 18px 0;
-  color: #171717;
+  color: #6B354C;
 }
 
 .contact-intro p {
-  color: #777;
+  color: #806B75;
   line-height: 1.9;
   font-size: 15px;
 }
@@ -114,17 +114,18 @@
   align-items: flex-start;
   min-height: 280px;
   padding: 32px;
-  background: #fff;
-  border: 1px solid #e9e3d7;
+  background: #FFFFFF;
+  border: 1px solid #F0DCE4;
+  border-radius: 8px;
   text-decoration: none;
-  color: #222;
+  color: #49323C;
   transition: 0.3s ease;
 }
 
 .contact-social-card:hover {
   transform: translateY(-7px);
-  border-color: #c9a45c;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.07);
+  border-color: #D4AF72;
+  box-shadow: 0 15px 35px rgba(107, 53, 76, 0.10);
 }
 
 .contact-social-icon {
@@ -133,8 +134,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #171717;
-  color: #c9a45c;
+  background: #FCEBF1;
+  color: #C96F91;
+  border-radius: 50%;
   margin-bottom: 22px;
 }
 
@@ -142,16 +144,17 @@
   font-family: Georgia, serif;
   font-size: 24px;
   margin: 0 0 8px;
+  color: #6B354C;
 }
 
 .contact-social-username {
-  color: #a17b35;
+  color: #C96F91;
   font-size: 13px;
   font-weight: 700;
 }
 
 .contact-social-card p {
-  color: #777;
+  color: #806B75;
   line-height: 1.7;
   font-size: 14px;
   margin: 15px 0 22px;
@@ -162,15 +165,15 @@
   align-items: center;
   gap: 8px;
   margin-top: auto;
-  color: #94702f;
+  color: #A77942;
   font-size: 13px;
   font-weight: 700;
 }
 
 /* WHATSAPP SECTION */
 .contact-whatsapp-section {
-  background: #171717;
-  color: #fff;
+  background: #F8D7E3;
+  color: #49323C;
   padding: 80px 8%;
   text-align: center;
 }
@@ -182,21 +185,22 @@
   align-items: center;
   justify-content: center;
   margin: 0 auto 25px;
-  border: 1px solid #c9a45c;
+  border: 1px solid #D4AF72;
   border-radius: 50%;
-  color: #c9a45c;
+  color: #C96F91;
 }
 
 .contact-whatsapp-section h2 {
   font-family: Georgia, serif;
   font-size: clamp(30px, 4vw, 43px);
   margin: 20px 0;
+  color: #6B354C;
 }
 
 .contact-whatsapp-section p {
   max-width: 620px;
   margin: auto;
-  color: #ccc;
+  color: #725966;
   line-height: 1.9;
   font-size: 15px;
 }
@@ -208,15 +212,16 @@
   gap: 10px;
   padding: 16px 25px;
   margin-top: 28px;
-  background: #c9a45c;
-  color: #171717;
+  background: #C96F91;
+  color: #FFFFFF;
   text-decoration: none;
   font-weight: 700;
+  border-radius: 4px;
   transition: 0.3s ease;
 }
 
 .contact-whatsapp-button:hover {
-  background: #e5c98b;
+  background: #A94F73;
   transform: translateY(-3px);
 }
 
@@ -224,12 +229,12 @@
 .contact-closing {
   padding: 75px 20px;
   text-align: center;
-  color: #94702f;
+  color: #D4AF72;
 }
 
 .contact-closing h2 {
   font-family: Georgia, serif;
-  color: #171717;
+  color: #6B354C;
   font-size: clamp(25px, 4vw, 36px);
   margin: 18px 0;
 }
@@ -237,7 +242,7 @@
 .contact-closing p {
   max-width: 600px;
   margin: auto;
-  color: #777;
+  color: #806B75;
   line-height: 1.8;
 }
 
