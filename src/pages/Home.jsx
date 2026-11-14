@@ -5,17 +5,21 @@ import {
   regularPerfumes,
   formatPrice,
 } from "../data/perfumes";
-import { ArrowRight } from "lucide-react";
+import {
+  ArrowRight,
+  MessageCircle,
+  Mail,
+} from "lucide-react";
 import "../App.css";
-
 
 const getImagePath = (path) =>
   `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
+
 function PerfumeCard({ perfume }) {
   return (
     <article className="perfume-card">
       <Link to="/Perfumes" className="perfume-image">
-        <img src={getImagePath(perfume.image)}alt={perfume.name}/>
+        <img src={getImagePath(perfume.image)} alt={perfume.name} />
       </Link>
 
       <div className="perfume-info">
@@ -40,7 +44,9 @@ function Home() {
         <section className="hero" id="home">
           <div className="hero-content">
             <p className="eyebrow">LUXURY • STYLE • THOUGHTFUL GIFTING</p>
-            <h1>Make Every Moment <span>Memorable.</span></h1>
+            <h1>
+              Make Every Moment <span>Memorable.</span>
+            </h1>
             <p>
               Discover beautiful fragrances, thoughtful gift hampers and
               unforgettable surprise experiences, all in one place.
@@ -58,7 +64,9 @@ function Home() {
 
         <section className="intro-section">
           <p className="eyebrow">WELCOME TO KENNYSCENT</p>
-          <h2>More Than Just a Gift. <span>It's an Experience.</span></h2>
+          <h2>
+            More Than Just a Gift. <span>It's an Experience.</span>
+          </h2>
           <p>
             From fragrances that leave a lasting impression to carefully
             arranged gifts and special surprises, we help you make every
@@ -70,7 +78,9 @@ function Home() {
           <div className="section-heading">
             <div>
               <p className="eyebrow">DISCOVER YOUR SIGNATURE SCENT</p>
-              <h2>Our <span>Perfume Collection</span></h2>
+              <h2>
+                Our <span>Perfume Collection</span>
+              </h2>
               <p>Find a fragrance that speaks your style.</p>
             </div>
             <Link to="/Perfumes" className="view-all">
@@ -114,8 +124,8 @@ function Home() {
             <p className="eyebrow">GIVE SOMETHING SPECIAL</p>
             <h2>Thoughtful Gifts, Beautifully Presented.</h2>
             <p>
-              Explore our gift  for him and her, thoughtfully put
-              together for life's special moments.
+              Explore our gifts for him and her, thoughtfully put together
+              for life's special moments.
             </p>
             <Link to="/Gifts" className="gold-button">
               Explore Gifting Packages <ArrowRight size={17} />
@@ -123,8 +133,11 @@ function Home() {
           </div>
           <div className="image">
             <img
-            src={getImagePath("/gifts/Gift package girls/01_red-heart-money-box_mel-jewelry-case_lashes_candle_ferrero_keychain_biscuits.jpeg")}
-             alt="Beautifully arranged red-heart gift package"/>
+              src={getImagePath(
+                "/gifts/Gift package girls/01_red-heart-money-box_mel-jewelry-case_lashes_candle_ferrero_keychain_biscuits.jpeg"
+              )}
+              alt="Beautifully arranged red-heart gift package"
+            />
           </div>
         </section>
 
@@ -142,14 +155,20 @@ function Home() {
           </div>
           <div className="image">
             <img
-            src={getImagePath("/surprises/dark-romantic-surprise-room-led-decor.jpeg")}alt="Luxury romantic surprise room setup"/>
+              src={getImagePath(
+                "/surprises/dark-romantic-surprise-room-led-decor.jpeg"
+              )}
+              alt="Luxury romantic surprise room setup"
+            />
           </div>
         </section>
 
         <section className="gloss-section">
           <div>
             <p className="eyebrow">A LITTLE EXTRA BEAUTY</p>
-            <h2>Meet <span>K'S GLOSS</span></h2>
+            <h2>
+              Meet <span>K'S GLOSS</span>
+            </h2>
             <p>
               Discover the beauty of a perfect finishing touch with K'S GLOSS.
             </p>
@@ -164,7 +183,9 @@ function Home() {
 
         <section className="about-section" id="about">
           <p className="eyebrow">A LITTLE ABOUT US</p>
-          <h2>Making Every Occasion <span>Extra Special.</span></h2>
+          <h2>
+            Making Every Occasion <span>Extra Special.</span>
+          </h2>
           <p>
             At Kennyscent & Confectionery, we believe the right fragrance,
             gift or surprise can turn an ordinary day into a lasting memory.
@@ -174,29 +195,102 @@ function Home() {
 
         <section className="contact-section" id="contact">
           <p className="eyebrow">WE WOULD LOVE TO HEAR FROM YOU</p>
-          <h2>Let's Make Something <span>Special.</span></h2>
+          <h2>
+            Let's Make Something <span>Special.</span>
+          </h2>
           <p>Have a question or want to arrange a special order?</p>
-          <a
-            href="https://wa.me/YOUR_WHATSAPP_NUMBER"
-            target="_blank"
-            rel="noreferrer"
-            className="gold-button"
-          >
-            Contact Us on WhatsApp
-          </a>
+          <Link to="/contact" className="gold-button">
+            Contact Us <ArrowRight size={17} />
+          </Link>
         </section>
       </main>
 
-      <footer className="footer">
-        <Link to="/" className="logo">
-          KENNYSCENT
-          <span>& CONFECTIONERY</span>
-        </Link>
-        <p>Luxury fragrances, thoughtful gifts and unforgettable moments.</p>
-        <p className="copyright">
-          © {new Date().getFullYear()} Kennyscent & Confectionery.
-          All rights reserved.
-        </p>
+      <footer className="site-footer">
+        <div className="footer-main">
+          <div className="footer-brand">
+            <Link to="/" className="footer-logo">
+              KENNYSCENT
+              <span>& CONFECTIONERY</span>
+            </Link>
+
+            <p>
+              Luxury fragrances, thoughtful gifts and unforgettable moments.
+              We make every occasion a little more special.
+            </p>
+
+            <a
+              href="https://wa.me/2347038511572"
+              target="_blank"
+              rel="noreferrer"
+              className="footer-whatsapp"
+            >
+              <MessageCircle size={17} />
+              Chat with us
+            </a>
+          </div>
+
+          <div className="footer-links">
+            <h3>Explore</h3>
+            <Link to="/">Home</Link>
+            <Link to="/Perfumes">Perfumes</Link>
+            <Link to="/Gifts">Gift Packages</Link>
+            <Link to="/Surprises">Surprise Setups</Link>
+            <Link to="/KGloss">K'S GLOSS</Link>
+          </div>
+
+          <div className="footer-links">
+            <h3>Quick Links</h3>
+            <Link to="/about">About Us</Link>
+            <Link to="/contact">Contact Us</Link>
+            <Link to="/cart">Shopping Cart</Link>
+          </div>
+
+          <div className="footer-contact">
+            <h3>Get in Touch</h3>
+
+            <a href="tel:+2347038511572">
+              <MessageCircle size={16} />
+              +234 703 851 1572
+            </a>
+
+            <a href="https://wa.me/2347038511572">
+              <MessageCircle size={16} />
+              WhatsApp Us
+            </a>
+
+            <a
+             href="https://instagram.com/kennyscent_and_confectionery"
+             target="_blank"
+             rel="noreferrer">
+             <span className="footer-tiktok">@</span>Instagram
+            </a>
+
+            <a
+              href="https://www.tiktok.com/@kennyscentconfectionery"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span className="footer-tiktok">♪</span>
+              TikTok
+            </a>
+
+            <Link to="/contact" className="footer-contact-link">
+              <Mail size={16} />
+              Send us an enquiry
+            </Link>
+          </div>
+        </div>
+
+        <div className="footer-bottom">
+          <p>
+            © {new Date().getFullYear()} Kennyscent & Confectionery.
+            All rights reserved.
+          </p>
+          <span>
+            Made with <span className="footer-heart">♥</span> for special
+            moments.
+          </span>
+        </div>
       </footer>
     </>
   );

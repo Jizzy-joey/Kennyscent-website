@@ -1,4 +1,5 @@
 
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
@@ -7,59 +8,57 @@ import {
   CalendarDays,
 } from "lucide-react";
 
+import { supabase } from "../lib/supabase";
 import "./Surprises.css";
 
 const whatsappNumber = "2347038511572";
 
-const getImagePath = (path) =>
-  `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
+const getImagePath = (path) => {
+  if (!path) return "";
 
-const getPublicImageUrl = (path) =>
-  `${window.location.origin}${getImagePath(path)}`;
+  if (path.startsWith("http")) return path;
+
+  return `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
+};
+
+const getPublicImageUrl = (path) => {
+  if (!path) return "";
+
+  if (path.startsWith("http")) return path;
+
+  return `${window.location.origin}${getImagePath(path)}`;
+};
 
 function Surprises() {
-  const surpriseSetups = [
-    {
-      id: 1,
-      name: "Romantic Silver Surprise",
-      description:
-        "A beautiful romantic room setup featuring silver balloons, LOVE petals, cake and a gift basket.",
-      image: "/surprises/silver-balloon-surprise-room-setup.jpeg",
-      occasion: "Romantic Surprise",
-    },
-    {
-      id: 2,
-      name: "Birthday Gift Display",
-      description:
-        "Celebrate someone special with birthday balloons, beautiful decorations and thoughtfully arranged gifts.",
-      image: "/surprises/birthday-surprise-gift-display-green-bed.jpeg",
-      occasion: "Birthday Surprise",
-    },
-    {
-      id: 3,
-      name: "Blue & Silver Birthday Setup",
-      description:
-        "A stylish blue and silver birthday decoration with balloons and a beautifully arranged celebration table.",
-      image: "/surprises/blue-silver-birthday-surprise-decor.jpeg",
-      occasion: "Birthday Decoration",
-    },
-    {
-      id: 4,
-      name: "Luxury Romantic Room Setup",
-      description:
-        "Create an unforgettable atmosphere with romantic lighting, silver balloons and elegant gift displays.",
-      image: "/surprises/dark-romantic-surprise-room-led-decor.jpeg",
-      occasion: "Romantic Room Setup",
-    },
-    {
-      id: 5,
-      name: "Luxury Black Birthday Setup",
-      description:
-        "A bold and elegant birthday experience featuring black balloons, rose petals and beautiful decorations.",
-      image: "/surprises/luxury-black-birthday-surprise-setup.jpeg",
-      occasion: "Luxury Birthday Setup",
-    },
-  ];
+  const [surpriseSetups, setSurpriseSetups] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const loadSurpriseSetups = async () => {
+      try {
+        setLoading(true);
+        setError("");
+
+        const { data, error } = await supabase
+          .from("surprise_setups")
+          .select("*")
+          .eq("is_active", true)
+          .order("created_at", { ascending: false });
+
+        if (error) throw error;
+
+        setSurpriseSetups(data || []);
+      } catch (err) {
+        console.error("Error loading surprise setups:", err);
+        setError("Unable to load surprise setups. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadSurpriseSetups();
+  }, []);
 
   // BOOK A PARTICULAR SURPRISE SETUP
   const bookSetup = (setup) => {
@@ -71,8 +70,8 @@ function Surprises() {
       "========== SETUP DETAILS ==========",
       `Setup Name: ${setup.name}`,
       `Occasion: ${setup.occasion}`,
-      `Description: ${setup.description}`,
-      `Setup Picture: ${getPublicImageUrl(setup.image)}`,
+      `Description: ${setup.description || "Not provided"}`,
+      `Setup Picture: ${getPublicImageUrl(setup.image_url)}`,
       "",
       "========== BOOKING ENQUIRY ==========",
       "Please provide more information about:",
@@ -168,37 +167,65 @@ function Surprises() {
           </p>
         </div>
 
-        <div className="surprise-gallery-grid">
-          {surpriseSetups.map((setup) => (
-            <article className="surprise-card" key={setup.id}>
-              <div className="surprise-card-image">
-                <img
-                  src={getImagePath(setup.image)}
-                  alt={setup.name}
-                  loading="lazy"
-                />
+        {loading && (
+          <p className="surprise-loading">
+            Loading our beautiful surprise setups...
+          </p>
+        )}
 
-                <span className="surprise-card-label">
-                  {setup.occasion}
-                </span>
-              </div>
+        {error && (
+          <p className="surprise-error">
+            {error}
+          </p>
+        )}
 
-              <div className="surprise-card-content">
-                <h3>{setup.name}</h3>
+        {!loading && !error && surpriseSetups.length === 0 && (
+          <p className="surprise-empty">
+            No surprise setups are currently available.
+            Please check back soon.
+          </p>
+        )}
 
-                <p>{setup.description}</p>
+        {!loading && !error && surpriseSetups.length > 0 && (
+          <div className="surprise-gallery-grid">
+            {surpriseSetups.map((setup) => (
+              <article className="surprise-card" key={setup.id}>
+                <div className="surprise-card-image">
+                  {setup.image_url && (
+                    <img
+                      src={getImagePath(setup.image_url)}
+                      alt={setup.name}
+                      loading="lazy"
+                    />
+                  )}
 
-                <button
-                  type="button"
-                  className="surprise-book-button"
-                  onClick={() => bookSetup(setup)}
-                >
-                  Book This Setup <ArrowRight size={17} />
-                </button>
-              </div>
-            </article>
-          ))}
-        </div>
+                  <span className="surprise-card-label">
+                    {setup.occasion}
+                  </span>
+                </div>
+
+                <div className="surprise-card-content">
+                  <h3>{setup.name}</h3>
+
+                  <p>{setup.description}</p>
+
+                  <button
+                    type="button"
+                    className="surprise-book-button"
+                    onClick={() => bookSetup(setup)}
+                    disabled={!setup.is_available}
+                  >
+                    {setup.is_available
+                      ? "Book This Setup"
+                      : "Currently Unavailable"}
+
+                    {setup.is_available && <ArrowRight size={17} />}
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* CUSTOM EVENTS */}

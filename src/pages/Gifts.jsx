@@ -1,14 +1,6 @@
 
 import { useEffect, useState } from "react";
 import {
-  giftPackagesForHim,
-  giftPackagesForHer,
-  balloonTreatsForHim,
-  balloonTreatsForHer,
-  formatGiftPrice,
-} from "../data/gifts";
-
-import {
   MessageCircle,
   ArrowRight,
   ShoppingCart,
@@ -20,6 +12,13 @@ import "./Gifts.css";
 
 const whatsappNumber = "2347038511572";
 const CART_KEY = "kennyscent-cart";
+
+const formatGiftPrice = (price) =>
+  new Intl.NumberFormat("en-NG", {
+    style: "currency",
+    currency: "NGN",
+    maximumFractionDigits: 0,
+  }).format(Number(price) || 0);
 
 const getImagePath = (path) => {
   if (!path) return "";
@@ -34,21 +33,9 @@ const getImagePath = (path) => {
 const getPublicImageUrl = (path) => {
   if (!path) return "Image unavailable";
 
-  return getImagePath(path);
-};
+  if (path.startsWith("http")) return path;
 
-// Prevent duplicate products when old and database products overlap.
-const combineProducts = (oldProducts, newProducts) => {
-  const filteredOldProducts = oldProducts.filter(
-    (oldProduct) =>
-      !newProducts.some(
-        (newProduct) =>
-          newProduct.name.trim().toLowerCase() ===
-          oldProduct.name.trim().toLowerCase()
-      )
-  );
-
-  return [...newProducts, ...filteredOldProducts];
+  return `${window.location.origin}${getImagePath(path)}`;
 };
 
 function GiftCard({ gift, isBalloonTreat = false }) {
@@ -233,21 +220,21 @@ export default function Gifts() {
 
   useEffect(() => {
     const loadGiftProducts = async () => {
-      const { data, error } = await supabase
-        .from("products")
-        .select("*")
-        .in("category", [
-          "gift_package_him",
-          "gift_package_her",
-          "balloon_treat_him",
-          "balloon_treat_her",
-        ])
-        .eq("is_active", true)
-        .order("created_at", { ascending: false });
+      try {
+        const { data, error } = await supabase
+          .from("products")
+          .select("*")
+          .in("category", [
+            "gift_package_him",
+            "gift_package_her",
+            "balloon_treat_him",
+            "balloon_treat_her",
+          ])
+          .eq("is_active", true)
+          .order("created_at", { ascending: false });
 
-      if (error) {
-        setFetchError(error.message);
-      } else {
+        if (error) throw error;
+
         const formattedProducts = (data || []).map((product) => ({
           id: product.id,
           name: product.name,
@@ -260,40 +247,31 @@ export default function Gifts() {
         }));
 
         setDatabaseProducts(formattedProducts);
+      } catch (error) {
+        console.error("Error loading gift products:", error);
+        setFetchError(error.message || "Unable to load products.");
+      } finally {
+        setLoading(false);
       }
-
-      setLoading(false);
     };
 
     loadGiftProducts();
   }, []);
 
-  const getProducts = (category, oldProducts) => {
-    const matchingProducts = databaseProducts.filter(
-      (product) => product.category === category
-    );
-
-    return combineProducts(oldProducts, matchingProducts);
-  };
-
-  const giftsForHim = getProducts(
-    "gift_package_him",
-    giftPackagesForHim
+  const giftsForHim = databaseProducts.filter(
+    (product) => product.category === "gift_package_him"
   );
 
-  const giftsForHer = getProducts(
-    "gift_package_her",
-    giftPackagesForHer
+  const giftsForHer = databaseProducts.filter(
+    (product) => product.category === "gift_package_her"
   );
 
-  const balloonsForHim = getProducts(
-    "balloon_treat_him",
-    balloonTreatsForHim
+  const balloonsForHim = databaseProducts.filter(
+    (product) => product.category === "balloon_treat_him"
   );
 
-  const balloonsForHer = getProducts(
-    "balloon_treat_her",
-    balloonTreatsForHer
+  const balloonsForHer = databaseProducts.filter(
+    (product) => product.category === "balloon_treat_her"
   );
 
   return (
@@ -342,12 +320,14 @@ export default function Gifts() {
       {fetchError && (
         <p className="gift-fetch-error">
           We couldn't load the latest products from our store.
-          Existing products are still displayed.
+          Please refresh the page or try again later.
         </p>
       )}
 
       {loading ? (
-        <p className="gift-loading">Loading our gift collections...</p>
+        <p className="gift-loading">
+          Loading our gift collections...
+        </p>
       ) : (
         <>
           <GiftSection
