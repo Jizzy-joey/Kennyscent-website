@@ -864,3 +864,44 @@
     grid-template-columns: 1fr;
   }
 }
+
+.admin-order-heading-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.admin-clear-orders-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #a83252;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.admin-clear-orders-button:hover {
+  background: #84243e;
+}
+
+.admin-clear-orders-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .admin-order-heading-actions {
+    width: 100%;
+  }
+
+  .admin-order-heading-actions button {
+    flex: 1;
+  }
+}

@@ -1,6 +1,4 @@
 
-
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -79,6 +77,8 @@ function AdminDashboard() {
   const [savingSurprise, setSavingSurprise] = useState(false);
 
   const [updatingOrder, setUpdatingOrder] = useState("");
+  const [clearingOrders, setClearingOrders] = useState(false);
+
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -171,6 +171,64 @@ function AdminDashboard() {
     }
 
     setUpdatingOrder("");
+  };
+
+  // CLEAR CONFIRMED AND CANCELLED ORDERS
+  const handleClearCompletedOrders = async () => {
+    const ordersToClear = orders.filter((order) =>
+      ["Confirmed", "Cancelled"].includes(order.status)
+    );
+
+    if (ordersToClear.length === 0) {
+      setError("");
+      setSuccess("There are no Confirmed or Cancelled orders to clear.");
+      return;
+    }
+
+    const confirmed = window.confirm(
+      `Are you sure you want to permanently delete ${ordersToClear.length} Confirmed/Cancelled order(s)? This cannot be undone.`
+    );
+
+    if (!confirmed) return;
+
+    setClearingOrders(true);
+    setError("");
+    setSuccess("");
+
+    try {
+      const orderIds = ordersToClear.map((order) => order.id);
+
+      // DELETE ORDER ITEMS FIRST
+      const { error: itemsError } = await supabase
+        .from("order_items")
+        .delete()
+        .in("order_id", orderIds);
+
+      if (itemsError) throw itemsError;
+
+      // DELETE THE ORDERS
+      const { error: ordersError } = await supabase
+        .from("orders")
+        .delete()
+        .in("id", orderIds);
+
+      if (ordersError) throw ordersError;
+
+      setOrders((previous) =>
+        previous.filter(
+          (order) => !orderIds.includes(order.id)
+        )
+      );
+
+      setSuccess(
+        `${ordersToClear.length} Confirmed/Cancelled order(s) cleared successfully!`
+      );
+    } catch (err) {
+      setError(`Could not clear orders: ${err.message}`);
+      await loadOrders();
+    } finally {
+      setClearingOrders(false);
+    }
   };
 
   // FORMAT PRICE
@@ -582,18 +640,30 @@ function AdminDashboard() {
             <h2>Customer Orders ({orders.length})</h2>
           </div>
 
-          <button
-            type="button"
-            className="admin-refresh-button"
-            onClick={loadOrders}
-            disabled={ordersLoading}
-          >
-            <RefreshCw
-              size={16}
-              className={ordersLoading ? "admin-spinning" : ""}
-            />
-            Refresh Orders
-          </button>
+          <div className="admin-order-heading-actions">
+            <button
+              type="button"
+              className="admin-clear-orders-button"
+              onClick={handleClearCompletedOrders}
+              disabled={clearingOrders || ordersLoading}
+            >
+              <Trash2 size={16} />
+              {clearingOrders ? "Clearing..." : "Clear Confirmed/Cancelled"}
+            </button>
+
+            <button
+              type="button"
+              className="admin-refresh-button"
+              onClick={loadOrders}
+              disabled={ordersLoading || clearingOrders}
+            >
+              <RefreshCw
+                size={16}
+                className={ordersLoading ? "admin-spinning" : ""}
+              />
+              Refresh Orders
+            </button>
+          </div>
         </div>
 
         {ordersLoading ? (
@@ -1219,9 +1289,9 @@ function AdminDashboard() {
           </div>
         )}
       </section>
+
       {/* SURPRISE SETUPS MANAGEMENT */}
       <SurpriseSetupManager />
-
     </main>
   );
 }
